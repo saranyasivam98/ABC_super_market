@@ -1,0 +1,22 @@
+[
+  {
+    "branch_id": "tup02",
+    "branch_address": "1,Tirupur New Bus Stand, 641602"
+  },
+  {
+    "branch_id": "cbe02",
+    "branch_address": "22B, Thadagam Road, Venkitapuram, Coimbatore 641025"
+  },
+  {
+    "branch_id": "tup03",
+    "branch_address": "25, Kangeyam road, Tirupur 641604"
+  },
+  {
+    "branch_id": "cbe03",
+    "branch_address": "317A, Mettupalayam Road, SaiBabaColony, Coimbatore 641025"
+  },
+  {
+    "branch_id": "tup04",
+    "branch_address": "317, Avinashi Road, CSI Church stop, Tirupur 641603"
+  }
+]

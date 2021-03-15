@@ -1,0 +1,38 @@
+[
+  {
+    "product_id": "shampoo_1",
+    "product_quantity": 500
+  },
+  {
+    "product_id": "shampoo_2",
+    "product_quantity": 579
+  },
+  {
+    "product_id": "shampoo_3",
+    "product_quantity": 892
+  },
+  {
+    "product_id": "facewash_1",
+    "product_quantity": 90
+  },
+  {
+    "product_id": "facewash_2",
+    "product_quantity": 8
+  },
+  {
+    "product_id": "facewash_2",
+    "product_quantity": 65
+  },
+  {
+    "product_id": "soap_1",
+    "product_quantity": 250
+  },
+  {
+    "product_id": "soap_2",
+    "product_quantity": 200
+  },
+  {
+    "product_id": "soap_3",
+    "product_quantity": 175
+  }
+]
