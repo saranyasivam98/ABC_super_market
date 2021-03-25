@@ -60,7 +60,6 @@ def main():
     purchase_data = PurchaseSchema(many=True).load(purchase_data)
     staff_data = StaffSchema(many=True).load(staff_data)
     customer_class = CustomerSchema(many=True).load(customers_data)
-    LOGGER.info(type(customer_class[0]))
 
     # Query 1:
     update_stock(products_data, 500)

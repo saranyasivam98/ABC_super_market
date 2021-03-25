@@ -32,8 +32,8 @@ def update_stock(products, lower_value):
     :return: None
     """
     for product in products:
-        if product["product_quantity"] < lower_value:  # user input from arg_parse
-            LOGGER.info("%s to be stocked", product["product_id"])
+        if product.product_quantity < lower_value:  # user input from arg_parse
+            LOGGER.info("%s to be stocked", product.product_id)
 
 
 def get_transactions_bw_dates(transactions, from_date, to_date):
@@ -52,8 +52,10 @@ def get_transactions_bw_dates(transactions, from_date, to_date):
     :return: None
     """
     for transaction in transactions:
-        if from_date.date() <= transaction["trans_date"].date() <= to_date.date():
-            LOGGER.info(transaction)
+        if from_date.date() <= transaction.trans_date.date() <= to_date.date():
+            LOGGER.info("Transaction id: %s, Transaction Date: %s, Customer Details: %s, Staff Details: %s, "
+                        "Branch Details: %s ", transaction.trans_id, str(transaction.trans_date.date()),
+                        transaction.customer_details, transaction.staff_details, transaction.branch_details)
 
 
 def most_transactions_branch(transaction_data, branch_data):
@@ -68,20 +70,24 @@ def most_transactions_branch(transaction_data, branch_data):
 
     :return: None
     """
+    # To get the branch details for each transaction
     trans_branches = []
     for transaction in transaction_data:
-        trans_branches.append(transaction["branch_details"])
+        trans_branches.append(transaction.branch_details)
 
+    # Getting the branch with most no of transactions
     most_trans_branch = Counter(trans_branches).most_common(1)
+
+    # Logging the information of branch with highest no of transactions
     for branch in branch_data:
-        if branch["branch_id"] == most_trans_branch[0][0]:
+        if branch.branch_id == most_trans_branch[0][0]:
             LOGGER.info(" %s has the most no of transactions and the address is %s ", most_trans_branch[0][0],
-                        branch["branch_address"])
+                        branch.branch_address)
 
 
 def staff_most_products(staff_data, transaction_data, purchase_data):
     """
-    To find which staff sold the most no of products
+    To find the staff who sold the most no of products
 
     :param staff_data: list of all staff details
     :type staff_data: list
@@ -94,26 +100,34 @@ def staff_most_products(staff_data, transaction_data, purchase_data):
 
     :return: None
     """
+    # Getting the transaction id and no of products for that transaction
     no_of_prods_transactions = []
     for purchase in purchase_data:
-        no_of_products = len(purchase["product_details"])
-        no_of_prods_transactions.append(dict(trans_id=purchase["trans_details"], no_of_products=no_of_products))
+        no_of_products = len(purchase.product_details)
+        no_of_prods_transactions.append(dict(trans_id=purchase.trans_details, no_of_products=no_of_products))
 
+    # Getting the staff id for each transaction and saving it along with no of products
     most_products_staff = []
     for transaction in transaction_data:
         for data in no_of_prods_transactions:
-            if transaction["trans_id"] == data["trans_id"]:
+            if transaction.trans_id == data["trans_id"]:
                 most_products_staff.append(dict(no_of_products=data["no_of_products"],
-                                                staff_id=transaction["staff_details"]))
+                                                staff_id=transaction.staff_details))
 
-    staff_ids = [staff["staff_id"] for staff in staff_data]
+    # Getting staff id from staff_data
+    staff_ids = [staff.staff_id for staff in staff_data]
     final_dict = {}
     for staff_id in staff_ids:
         final_dict[staff_id] = 0
 
+    # To link the staff id and no of products
     for data in most_products_staff:
         for staff in staff_ids:
             if data["staff_id"] == staff:
                 final_dict[data["staff_id"]] += data["no_of_products"]
-    keymax = max(final_dict, key=final_dict.get)
-    LOGGER.info("%s has sold the maximum no of products", keymax)
+
+    # Getting the maximum no of products sold per staff id
+    key_max = max(final_dict, key=final_dict.get)
+
+    # Logging the staff id who sold the most no of products
+    LOGGER.info("%s has sold the maximum no of products", key_max)
